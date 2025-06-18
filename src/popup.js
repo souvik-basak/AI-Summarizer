@@ -63,6 +63,7 @@ async function getGeminiSummary(
     case "tweet-like":
       promptIntro =
         "Convert the following article into a Twitter thread with 5–8 engaging tweets. Each tweet should be concise (under 280 characters), informative, and written in a clear and impactful tone. Use hooks, emojis (if appropriate), and make sure the thread flows naturally. Add a compelling opening tweet and a strong conclusion. you can use newlines to separate tweets.";
+      break;
     default:
       promptIntro = "Summarize the following article.";
   }
@@ -74,7 +75,7 @@ async function getGeminiSummary(
   const prompt = `${promptIntro}\n\n${truncatedText}`;
 
   const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -217,7 +218,7 @@ document.getElementById("chat-send").addEventListener("click", async () => {
 
     try {
       const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiApiKey}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -278,7 +279,7 @@ document.getElementById("tags-btn").addEventListener("click", async () => {
 
     try {
       const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${geminiApiKey}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
