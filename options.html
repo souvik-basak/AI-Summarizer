@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Extension Options</title>
+    <link href="./src/output.css" rel="stylesheet" />
+  </head>
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+      <h1 class="text-3xl font-semibold text-center mb-6 text-blue-500">AI Summarize Extension Settings</h1>
+      <form id="optionsForm" class="space-y-5">
+        <div>
+          <label for="apiKey" class="block text-sm font-medium mb-1">Gemini API Key</label>
+          <input
+            type="text"
+            id="apiKey"
+            name="apiKey"
+            placeholder="Enter your API key..."
+            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 focus:outline-none"
+            required
+          />
+          <p class="text-sm text-gray-500 mt-2">
+            ⚠️ To use this extension, you must provide your own
+            <a href="https://makersuite.google.com/app/apikey" target="_blank" class="text-blue-600 hover:underline" rel="noopener noreferrer">
+              Gemini API key</a>. This ensures your summaries are private and avoids hitting shared usage limits.
+          </p>
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200 shadow-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        >
+          Save API Key
+        </button>
+        <p id="successMessage" class="text-green-600 text-sm mt-2 hidden transition-opacity duration-300 ease-in">
+          ✅ API key saved successfully!
+        </p>
+      </form>
+    </div>
+  <script src="options.js"></script>
+  </body>
+</html>

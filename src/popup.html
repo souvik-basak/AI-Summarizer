@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Summarizer</title>
+    <link href="./output.css" rel="stylesheet" />
+    <style>
+      .shimmer {
+        position: relative;
+        overflow: hidden;
+        background-color: #a2a3a5; /* Tailwind gray-200 */
+      }
+
+      .shimmer::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -150%;
+        width: 150%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          rgba(229, 231, 235, 0) 0%,
+          rgba(255, 255, 255, 0.5) 50%,
+          rgba(229, 231, 235, 0) 100%
+        );
+        animation: shimmer 1.2s infinite;
+      }
+
+      @keyframes shimmer {
+        100% {
+          left: 100%;
+        }
+      }
+
+    </style>
+  </head>
+  <body class="bg-gray-100 text-gray-900 p-4 font-sans">
+    <h2 class="text-2xl font-bold text-blue-700 mb-6 flex items-center gap-2">
+      🤖 <span>AI Summarizer</span>
+    </h2>
+
+    <!-- Row with dropdowns and generate button -->
+    <div class="flex flex-row gap-4 overflow-x-auto whitespace-nowrap mb-6">
+      <!-- Summary Type -->
+      <div class="flex flex-col w-[100px] shrink-0">
+        <label for="summary-type" class="mb-1 text-sm font-medium"
+          >Summary Type</label
+        >
+        <select
+          id="summary-type"
+          class="p-2 border border-gray-300 rounded bg-white"
+        >
+          <option value="brief">Brief</option>
+          <option value="detailed">Detailed</option>
+          <option value="bullet">Bullet</option>
+          <option value="simplified">Simplified</option>
+          <option value="analytical">Analytical</option>
+          <option value="question-based">Question based</option>
+          <option value="tweet-like">Tweet Thread</option>
+        </select>
+      </div>
+
+      <!-- Tone -->
+      <div class="flex flex-col w-[100px] shrink-0">
+        <label for="tone" class="mb-1 text-sm font-medium">Tone</label>
+        <select id="tone" class="p-2 border border-gray-300 rounded bg-white">
+          <option value="neutral">Neutral</option>
+          <option value="casual">Casual</option>
+          <option value="formal">Formal</option>
+          <option value="witty">Witty</option>
+          <option value="persuasive">Persuasive</option>
+        </select>
+      </div>
+
+      <!-- Reading Level -->
+      <div class="flex flex-col w-[100px] shrink-0">
+        <label for="reading-level" class="mb-1 text-sm font-medium"
+          >Reading Level</label
+        >
+        <select
+          id="reading-level"
+          class="p-2 border border-gray-300 rounded bg-white"
+        >
+          <option value="basic">Basic</option>
+          <option value="intermediate">Intermediate</option>
+          <option value="advanced">Advanced</option>
+        </select>
+      </div>
+
+      <!-- Language -->
+      <div class="flex flex-col w-[100px] shrink-0">
+        <label for="language" class="mb-1 text-sm font-medium">Language</label>
+        <select
+          id="language"
+          class="p-2 border border-gray-300 rounded bg-white"
+        >
+          <option value="en-US">English</option>
+          <option value="hi-IN">Hindi</option>
+          <option value="bn-IN">Bengali</option>
+          <option value="es-ES">Spanish</option>
+          <option value="fr-FR">French</option>
+          <option value="de-DE">German</option>
+          <option value="zh-CN">Chinese</option>
+          <option value="ar-SA">Arabic</option>
+          <option value="ja-JP">Japanese</option>
+        </select>
+      </div>
+
+      <!-- Generate Button -->
+      <div class="flex items-end">
+        <button
+          id="generate-btn"
+          class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition cursor-pointer"
+        >
+          Generate
+        </button>
+      </div>
+    </div>
+
+    <!-- Summary Output -->
+    <pre
+      id="summary-output"
+      class="bg-white p-3 rounded shadow border border-gray-300 h-60 overflow-auto whitespace-pre-wrap mb-4 text-sm md:text-base leading-relaxed -pt-2"
+    >
+Your summary will appear here...📌
+    </pre>
+
+    <!-- Footer Actions -->
+    <div class="flex flex-row gap-4 items-center justify-start">
+      <button
+        id="copy-btn"
+        class="bg-gray-800 text-white px-3 py-2 rounded hover:bg-gray-900 cursor-pointer"
+      >
+        📋 Copy
+      </button>
+      <button
+        id="ask-btn"
+        class="bg-indigo-600 text-white px-3 py-2 rounded hover:bg-indigo-700 cursor-pointer"
+      >
+        💬 Ask AI
+      </button>
+      <button
+        id="tags-btn"
+        class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 cursor-pointer"
+      >
+        🏷️ Generate Tags
+      </button>
+    </div>
+    <!-- Chat UI -->
+    <div
+    id="chat-ui"
+    class="hidden flex flex-col border rounded p-3 bg-white h-64 overflow-y-auto text-sm space-y-3 mt-4 mb-4"
+  >
+    <!-- Chat messages go here -->
+    <div id="chat-window" class="flex flex-col gap-2 overflow-y-auto flex-1 pr-1"></div>
+  
+    <!-- Input and send button -->
+    <div id="ask-ai-controls" class="flex gap-2 pt-2 border-t border-gray-200 mt-2 mb-2">
+      <input
+        type="text"
+        id="chat-input"
+        placeholder="Ask something..."
+        class="flex-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+      />
+      <button
+        id="chat-send"
+        class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"
+      >
+        ➤
+      </button>
+    </div>
+  </div>
+  
+
+    <script src="popup.js"></script>
+  </body>
+</html>
