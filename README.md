@@ -1,7 +1,7 @@
 
-# 🧠 AI Summarizer
+# 🧠 ConciseAI
 
-**AI Summarizer** is a lightweight, customizable, and powerful tool that uses Google Gemini’s models to convert articles into smart summaries. It supports multiple summary styles, tones, and reading levels. With chat integration and tag generation, this tool is ideal for readers, students, content creators, and researchers.
+**ConciseAI** is a lightweight, customizable, and powerful tool that uses Google Gemini’s models to convert articles into smart summaries. It supports multiple summary styles, tones, and reading levels. With chat integration and tag generation, this tool is ideal for readers, students, content creators, and researchers.
 
 ---
 

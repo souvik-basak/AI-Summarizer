@@ -148,28 +148,36 @@ document.getElementById("copy-btn").addEventListener("click", () => {
   const summaryText = summaryOutput.innerText.trim();
   const btn = document.getElementById("copy-btn");
 
-  if (summaryText) {
-    btn.disabled = true;
-    btn.innerText = "Copying...";
-    navigator.clipboard
-      .writeText(summaryText)
-      .then(() => {
-        const originalText = "📋 Copy";
-        btn.innerText = "✅ Copied!";
-        btn.style.backgroundColor = "#4CAF50";
-        btn.style.color = "#fff";
-        setTimeout(() => {
-          btn.innerText = originalText;
-          btn.style.backgroundColor = "";
-          btn.style.color = "";
-          btn.disabled = false;
-        }, 2000);
-      })
-      .catch((err) => {
-        console.error("Failed to copy: ", err);
-        btn.disabled = false;
-      });
+  // Prevent copying placeholder or empty
+  if (
+    !summaryText ||
+    summaryText === "Your summary will appear here...📌" ||
+    summaryOutput.classList.contains("animate-pulse")
+  ) {
+    alert("❗ Please generate a summary first.");
+    return;
   }
+
+  btn.disabled = true;
+  btn.innerText = "Copying...";
+  navigator.clipboard
+    .writeText(summaryText)
+    .then(() => {
+      const originalText = "📋 Copy";
+      btn.innerText = "✅ Copied!";
+      btn.style.backgroundColor = "#4CAF50";
+      btn.style.color = "#fff";
+      setTimeout(() => {
+        btn.innerText = originalText;
+        btn.style.backgroundColor = "";
+        btn.style.color = "";
+        btn.disabled = false;
+      }, 2000);
+    })
+    .catch((err) => {
+      console.error("Failed to copy: ", err);
+      btn.disabled = false;
+    });
 });
 
 const askBtn = document.getElementById("ask-btn");
@@ -232,7 +240,7 @@ document.getElementById("chat-send").addEventListener("click", async () => {
       const data = await res.json();
       const reply =
         data?.candidates?.[0]?.content?.parts?.[0]?.text || "No reply.";
-      appendMessage("ai", reply); // ⬅️ Show AI's message
+      appendMessage("ai", stripMarkdown(reply)); // ⬅️ Show AI's message
     } catch (error) {
       appendMessage("ai", `❌ Error: ${error.message}`);
     }
